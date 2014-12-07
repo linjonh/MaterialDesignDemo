@@ -107,23 +107,29 @@ public class MyActivity extends ActionBarActivity {
     }
     private List<BaseHouseEntity> getInitData(){
         List<BaseHouseEntity> datas = new ArrayList<BaseHouseEntity>();
-        datas.add(new BaseHouseEntity("房师兄"));
-        datas.add(new BaseHouseEntity("58同城"));
-        datas.add(new BaseHouseEntity("微信"));
-        datas.add(new BaseHouseEntity("米聊"));
-        datas.add(new BaseHouseEntity("微博"));
+        datas.add(new BaseHouseEntity("Chow"));
+        datas.add(new BaseHouseEntity("58"));
+        datas.add(new BaseHouseEntity("WeChat"));
+        datas.add(new BaseHouseEntity("MiChat"));
+        datas.add(new BaseHouseEntity("WeiBo"));
         datas.add(new BaseHouseEntity("Google+"));
-        datas.add(new BaseHouseEntity("房师兄"));
-        datas.add(new BaseHouseEntity("58同城"));
-        datas.add(new BaseHouseEntity("微信"));
-        datas.add(new BaseHouseEntity("米聊"));
-        datas.add(new BaseHouseEntity("微博"));
         datas.add(new BaseHouseEntity("Google+"));
-        datas.add(new BaseHouseEntity("房师兄"));
-        datas.add(new BaseHouseEntity("58同城"));
-        datas.add(new BaseHouseEntity("微信"));
-        datas.add(new BaseHouseEntity("米聊"));
-        datas.add(new BaseHouseEntity("微博"));
+        datas.add(new BaseHouseEntity("Google+"));
+        datas.add(new BaseHouseEntity("Chow"));
+        datas.add(new BaseHouseEntity("58"));
+        datas.add(new BaseHouseEntity("WeChat"));
+        datas.add(new BaseHouseEntity("MiChat"));
+        datas.add(new BaseHouseEntity("WeiBo"));
+        datas.add(new BaseHouseEntity("Google+"));
+        datas.add(new BaseHouseEntity("Google+"));
+        datas.add(new BaseHouseEntity("Google+"));
+        datas.add(new BaseHouseEntity("Chow"));
+        datas.add(new BaseHouseEntity("58"));
+        datas.add(new BaseHouseEntity("WeChat"));
+        datas.add(new BaseHouseEntity("MiChat"));
+        datas.add(new BaseHouseEntity("WeiBo"));
+        datas.add(new BaseHouseEntity("Google+"));
+        datas.add(new BaseHouseEntity("Google+"));
         datas.add(new BaseHouseEntity("Google+"));
         return datas;
     }
@@ -142,7 +148,7 @@ public class MyActivity extends ActionBarActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("菜单");
+                getSupportActionBar().setTitle("Menu");
             }
 
         };
