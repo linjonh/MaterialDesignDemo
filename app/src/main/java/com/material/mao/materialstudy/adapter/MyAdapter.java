@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.material.mao.materialstudy.R;
+import com.material.mao.materialstudy.entity.BaseHouseEntity;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -16,9 +19,9 @@ import butterknife.InjectView;
  * Created by Administrator on 2014/12/5.
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private String[] mDataset;
+    private List<BaseHouseEntity> mDataset;
 
-    public MyAdapter(String[] myDataset) {
+    public MyAdapter(List<BaseHouseEntity> myDataset) {
         mDataset = myDataset;
     }
 
@@ -31,21 +34,29 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.mTvName.setText(mDataset[i]);
+        viewHolder.mTvName.setText(mDataset.get(i).getName());
     }
 
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 
+    public void removeItem(int position){
+        mDataset.remove(position);
+        notifyItemRemoved(position);
+    }
+    public void addItem(int position){
+        mDataset.add(position,new BaseHouseEntity("美丽屋 -> "+position));
+        notifyItemInserted(position);
+    }
     /**
      * This class contains all butterknife-injected Views & Layouts from layout file 'my_text_view.xml'
      * for easy to all layout elements.
      *
      * @author ButterKnifeZelezny, plugin for Android Studio by Inmite Developers (http://inmite.github.io)
      */
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         @InjectView(R.id.iv_head)
         ImageView mIvHead;
         @InjectView(R.id.tv_name)
@@ -59,13 +70,4 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
 
     }
-//    public static class ViewHolder extends RecyclerView.ViewHolder{
-//        private TextView mTvName;
-//        private TextView mTvDescription;
-//        private ImageView mIvHead;
-//        public ViewHolder(TextView itemView) {
-//            super(itemView);
-//            mTextView = itemView;
-//        }
-//    }
 }
