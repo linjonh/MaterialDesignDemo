@@ -3,7 +3,9 @@ package com.material.mao.materialstudy;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,7 +31,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 
-public class MyActivity extends ActionBarActivity {
+public class MyActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
     @InjectView(R.id.my_recycler_view)
     RecyclerView mMyRecyclerView;
     @InjectView(R.id.left_drawer)
@@ -42,6 +44,8 @@ public class MyActivity extends ActionBarActivity {
     TextView mTvAdd;
     @InjectView(R.id.fl_content)
     FrameLayout mFlContent;
+    @InjectView(R.id.srl_flush)
+    SwipeRefreshLayout mSrlFlush;
     private MyAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     private String[] mPlanetTitles;
@@ -60,6 +64,14 @@ public class MyActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         Drawable myDrawable = getResources().getDrawable(R.color.primary);
         getSupportActionBar().setBackgroundDrawable(myDrawable);
+
+        mSrlFlush.setOnRefreshListener(this);
+        mSrlFlush.setProgressBackgroundColor(R.color.white_bg);
+        mSrlFlush.setColorScheme(
+                android.R.color.holo_blue_light,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
     @Override
@@ -83,7 +95,7 @@ public class MyActivity extends ActionBarActivity {
         DividerView dividerView = new DividerView(this);
         mMyRecyclerView.addItemDecoration(dividerView);
 
-        mMyRecyclerView.setItemAnimator(new MyItemAnimation());
+        //mMyRecyclerView.setItemAnimator(new MyItemAnimation());
 
         mAdapter = new MyAdapter(getInitData());
         mMyRecyclerView.setAdapter(mAdapter);
@@ -97,15 +109,16 @@ public class MyActivity extends ActionBarActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if(dy>0){
+                if (dy > 0) {
                     mTvDel.setVisibility(View.INVISIBLE);
-                }else{
-                    mTvDel.setVisibility(View.VISIBLE);
+                } else {
+                    mTvDel.setVisibility(View.INVISIBLE);
                 }
             }
         });
     }
-    private List<BaseHouseEntity> getInitData(){
+
+    private List<BaseHouseEntity> getInitData() {
         List<BaseHouseEntity> datas = new ArrayList<BaseHouseEntity>();
         datas.add(new BaseHouseEntity("Chow"));
         datas.add(new BaseHouseEntity("58"));
@@ -133,6 +146,7 @@ public class MyActivity extends ActionBarActivity {
         datas.add(new BaseHouseEntity("Google+"));
         return datas;
     }
+
     private void initDrawerLayout() {
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -159,20 +173,23 @@ public class MyActivity extends ActionBarActivity {
 
         //mLeftDrawer.setOnItemClickListener();
     }
+
     @OnClick(R.id.tv_add)
-    public void onClickAdd(View view){
+    public void onClickAdd(View view) {
         int position = mLayoutManager.findFirstCompletelyVisibleItemPosition();
-        if(position>=0){
+        if (position >= 0) {
             mAdapter.addItem(position);
         }
     }
+
     @OnClick(R.id.tv_del)
-    public void onClickDel(View view){
-        int position = mLayoutManager.findLastCompletelyVisibleItemPosition()-3;
-        if(position>=0){
+    public void onClickDel(View view) {
+        int position = mLayoutManager.findLastCompletelyVisibleItemPosition() - 3;
+        if (position >= 0) {
             mAdapter.removeItem(position);
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.my, menu);
@@ -190,5 +207,20 @@ public class MyActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    private boolean isRefresh = false;
+    @Override
+    public void onRefresh() {
+        if(!isRefresh){
+            isRefresh = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mSrlFlush.setRefreshing(false);
+                    mAdapter.addItem(0);
+                    isRefresh = false;
+                }
+            },2000);
+        }
 
+    }
 }

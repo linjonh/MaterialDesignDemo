@@ -4,8 +4,9 @@
     <color name="primary_dark">#6bb8b4</color>
     <color name="accent">#62BE5B</color>
     <!-- common -->
-    <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_bg">#F5f5f5</color>
     <color name="share_bk">#f7f6f1</color>
     <color name="share_bk_line">#cfccbd</color>
     <color name="weclcome_bk">#4b3727</color>
