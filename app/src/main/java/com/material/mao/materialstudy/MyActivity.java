@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-
+// add test text 
 public class MyActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
     @InjectView(R.id.my_recycler_view)
     RecyclerView mMyRecyclerView;
